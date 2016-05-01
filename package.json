@@ -1,0 +1,22 @@
+{
+  "name": "userstory-ns",
+  "version": "1.0.0",
+  "description": "This is a userstory app by Nishtha",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nishtha Singhal",
+  "license": "ISC",
+  "dependencies": {
+    "angular-utils-pagination": "^0.8.2",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.0.5",
+    "mongoose": "^4.1.5",
+    "morgan": "^1.6.1",
+    "nodemon": "^1.4.1",
+    "socket.io": "^1.3.6"
+  }
+}

@@ -1,0 +1,76 @@
+<div class="container contentContainer" id="topContainer" style="margin-top:120px;position:relative;">
+    <div class="hippo-img">
+        <img src="/app/hippo_blue.png"/><p style="padding-top:30px;color:white;font-size:18px;font-weight:bold;">BLUE HIPPO</p>
+    </div>
+     <div class="row" ng-controller="diaryController as diary">
+         <div class="col-sm-7  topRow1" style="position:relative;">
+            <img src="/app/bubbles1.png" class="right">
+            <p class="serverMsg alert-success" ng-if="diary.bool">{{diary.message}}</p>
+            <p class="formerror alert-danger" ng-if="diary.err">{{diary.error}}</p>
+             <form name="diaryForm" method="post" ng-submit ="diary.createUpdateDiary()" novalidate>
+                <div class="form-group" style="position:relative" ng-class="{'has-focus': diary.diaryData.title}">
+                    <label for="diarytitle">Title</label>
+                   
+                    <input type="text" name="diarytitle" ng-model="diary.diaryData.title" class="form-control title"  required input-focus ng-blur="validate=true">
+                </div>
+                <div class="form-group" style="position:relative">
+                    <textarea class="form-control details" name="diarycontent" ng-model="diary.diaryData.content" placeholder="content...." ></textarea>
+                </div>
+                <button type="submit" name= "submit" class="btn btn-success btn-lg" style="width:100%;margin-top:20px;">Save</button>
+             </form>
+             <div class="new_entry_div" style="width:100%;">
+                <button type="submit" name= "new" class="btn btn-success new_entry" ng-click ="diary.newDiary()" >New Entry</button>
+                <button type="submit" name= "delete" class="btn btn-success delete" ng-click ="diary.deleteDiaryEntry(diary.diaryData, 'true')" ng-disabled="!diary.diaryData._id"> Delete </button>
+             </div>
+         </div>
+          <div class="col-sm-4 topRow2 col-sm-offset-1"  ng-show="diary.diaries.length">
+              
+              <img src="/app/bubbles2.png" class="left">
+           <div class="form-group" style="position:relative">
+                <label for="search">search for diaries...</label>
+                <input type="search" name="search" class="form-control" ng-model="diary.searchTerm" input-focus aria-label="filter diary" style="background-color:#006900;border:none;color:#fff;border-radius:0;"/>
+            </div>
+            <div class="form-group" style="position:relative">
+                <select name="sort-diary" class="form-control" ng-model="sortorder" ng-init="sortorder='title'">
+                    <option value=""> sort by...</option>
+                    <option value="title">title</option>
+                    <option value="creatiodDate">creation date</option>
+                    <option value="modificationDate">last modified</option>
+                </select>
+            </div>
+                <div class="list-group">
+                 <div class="list-group-item" ng-repeat="each in filtered = (diary.diaries | filter:diary.filterOnTitleContent ) | orderBy:sortorder  | offset: diary.currentPage*diary.itemsPerPage | limitTo: diary.itemsPerPage track by $index" style="padding:0" ng-class="{'active': each._id == diary.diaryData._id}">
+                        <a ng-click="diary.setcurrentDiary(each)" href=""  style="display: block; padding-top:10px;padding-left:10px;">
+                            <p style="font-size:1.1em;font-weight:bold;">{{each.title | limitTo: 30 }}{{each.title.length > 30 ? '...' : ''}}</p>
+                            <p>{{each.modificationDate | date:'MM/dd/yyyy @ h:mma'}}</p>
+                            <p>{{each.content | limitTo: 80 }}{{each.content.length > 80 ? '...' : ''}}</p>
+                        </a>
+                        <a href="#" ng-click="diary.deleteDiaryEntry(each, 'false')"  class="btn btn-sm " style="position: absolute; top: 35%; right: 10px; margin-top: -15px;background-color:#D84B16;color:#fff">X</a>
+                </div>
+                <p>
+                <!-- filtered.length={{filtered.length}}<br>
+                Length={{diary.diaries.length}}<br>
+                 currentpage={{diary.currentPage}}</p>-->
+                    <div class="pagination" ng-if="diary.pageCount>0">
+                            <ul class="paginationList">
+                              <li ng-class="diary.prevPageDisabled()">
+                                <a href ng-click="diary.prevPage()">« Prev</a>
+                              </li>
+                              <li ng-repeat="n in diary.range(filtered.length)" ng-class="{active: n == diary.currentPage}" ng-click="diary.setPage(n)">
+                                <a href="#">{{n+1}}</a>
+                              </li>
+                              <li ng-class="diary.nextPageDisabled()">
+                                <a href ng-click="diary.nextPage()">Next »</a>
+                              </li>
+                            </ul>
+                    </div>
+
+            </div>
+         </div>
+    </div>
+ </div>
+<script> 
+   // alert($(window).height());
+    $(".contentContainer").css("min-height",$(window).height());
+    $("textarea.details").css("height",$(window).height()-330);
+</script>

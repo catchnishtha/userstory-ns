@@ -1,0 +1,62 @@
+ <div class="container contentContainer" id="topContainer" style="margin-top:0px;">
+     <img src="/app/bubbles1.png" class="left">
+     <img src="/app/bubbles2.png" class="right">
+			<div class="row" ng-controller="UserCreateController as usersup">
+				<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3" id="topRow">
+                    <img src="/app/hippo_blue.png" class="hippo-img" />
+                    <!--<i class="fa fa-book fa-4x"></i>-->
+                    <p class="lead" style="color:#62A1C4;font:bold">Blue Hippo</p>
+					 <h1 class="marginTop">Your NoteBook, digitally</h1>
+					 <p class="lead" style="color:#68453B">Shhhh! Say hello to your secret companion!</p>
+                    <p>Make as many entries and safekeep your thoughts.</p>
+                    <hr class="hr-small"/>
+					 <!-- 
+						if ($error) {
+							echo '<div class="alert alert-danger">'.addslashes($error).'</div>';
+						}
+						if ($message) {
+							echo '<div class="alert alert-success">'.addslashes($message).'</div>';
+						}
+					 -->
+					 	<style>
+					 		
+					 	</style>
+                    <p>Please Sign Up Below or Login Above!</p>
+                    <p class="formerror">{{usersup.error}}</p>
+					 <form name="signupForm" class="marginTop signup-form" method="post" ng-submit="usersup.signupUser(signupForm.$valid)" novalidate> 
+							<div class="form-group" style="position:relative" ng-class="{'has-focus': signupForm.username.$dirty}">
+								<label for="username">Your Email</label>
+								<input type="email" name="username" class="form-control" ng-model="usersup.userData.username" required input-focus ng-blur="validate=true"/>
+							</div>
+							<div ng-messages="signupForm.username.$error" role="alert"  ng-if='signupForm.username.$dirty'>
+							    <div ng-message="required">Please enter your email.</div>
+							    <div ng-if='validate'>
+								    <div ng-message="email">Please enter a valid email.</div>
+								</div>
+							</div>
+
+
+						<div class="form-group" style="position:relative"  ng-class="{'has-focus': (signupForm.password.$dirty)}">
+							<label for="password">Your password</label>
+							<input type="password" name="password"  class="form-control" ng-model="usersup.userData.password" required input-focus ng-minlength="8" />	
+						</div>
+						<div ng-messages="signupForm.password.$error" role="alert" ng-if='signupForm.password.$dirty'>
+						    <div ng-message="required">Please enter a password.</div>
+						    <div ng-message="minlength">Password should be at least 8 characters long.</div>
+						</div>
+	                   <button type="submit" name= "submit" class="btn btn-success btn-lg">Sign Up </button>
+					</form>
+					<!--<form class="marginTop" method="post"> 
+						<div class="form-group">
+							<label for="email">Enter your Email Address</label>
+							<input type="email" name="email" class="form-control" placeholder="Your Email" value="$_POST['email']" />
+						</div>
+						<div class="form-group">
+							<label for="password">Enter your Password</label>
+							<input type="password" name="password" class="form-control" placeholder="Password" value="$_POST['password']" />																		  
+						</div>
+						<input type="submit" name="submit" value="Sign Up" class="btn btn-success btn-lg"/> 
+					 </form>-->
+				 </div>
+			</div>
+	  </div>
